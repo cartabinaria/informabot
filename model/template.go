@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"text/template"
 
-	cparser "github.com/csunibo/config-parser-go"
+	cparser "github.com/cartabinaria/config-parser-go"
 )
 
 type globaVar struct {
@@ -112,8 +112,8 @@ func getVariables() globaVar {
 		// The following domains are hard-coded, we could write them in config...
 		Domains: map[string]string{
 			"ADMStaffBase": "students.cs.unibo.it",
-			"GithubBase":   "github.com/csunibo",
-			"GithubPages":  "csunibo.github.io",
+			"GithubBase":   "github.com/cartabinaria",
+			"GithubPages":  "cartabinaria.github.io",
 		},
 	}
 

@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/csunibo/unibo-go/timetable"
+	"github.com/cartabinaria/unibo-go/timetable"
 	"golang.org/x/exp/slices"
 )
 

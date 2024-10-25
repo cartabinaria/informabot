@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/csunibo/informabot/bot"
+	"github.com/cartabinaria/informabot/bot"
 )
 
 const tokenKey = "TOKEN"

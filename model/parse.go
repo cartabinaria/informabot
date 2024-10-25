@@ -11,8 +11,8 @@ import (
 	"github.com/mitchellh/mapstructure"
 	"golang.org/x/exp/slices"
 
-	"github.com/csunibo/config-parser-go"
-	"github.com/csunibo/informabot/utils"
+	"github.com/cartabinaria/config-parser-go"
+	"github.com/cartabinaria/informabot/utils"
 )
 
 const (

@@ -9,9 +9,9 @@ import (
 	tgbotapi "github.com/samuelemusiani/telegram-bot-api"
 	"golang.org/x/exp/slices"
 
-	"github.com/csunibo/config-parser-go"
-	"github.com/csunibo/informabot/model"
-	"github.com/csunibo/informabot/utils"
+	"github.com/cartabinaria/config-parser-go"
+	"github.com/cartabinaria/informabot/model"
+	"github.com/cartabinaria/informabot/utils"
 )
 
 func StartInformaBot(token string, debug bool) {
@@ -143,7 +143,7 @@ func teachingToString(teaching cparser.Teaching) string {
 	if teaching.Name != "" {
 		b.WriteString(fmt.Sprintf("<a href='https://risorse.students.cs.unibo.it/%s/'>📚 Risorse (istanza principale)</a>\n", teaching.Url))
 		b.WriteString(fmt.Sprintf("<a href='https://dynamik.vercel.app/%s/'>📚 Risorse (istanza di riserva 1)</a>\n", teaching.Url))
-		b.WriteString(fmt.Sprintf("<a href='https://github.com/csunibo/%s/'>📂 Repository GitHub delle risorse</a>\n", teaching.Url))
+		b.WriteString(fmt.Sprintf("<a href='https://github.com/cartabinaria/%s/'>📂 Repository GitHub delle risorse</a>\n", teaching.Url))
 	}
 	if teaching.Chat != "" {
 		b.WriteString(fmt.Sprintf("<a href='%s'>👥 Gruppo Studenti</a>\n", teaching.Chat))

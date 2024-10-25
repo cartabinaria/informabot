@@ -1,11 +1,9 @@
-github.com/csunibo/config v1.0.0 h1:cHPxm64M9AibZ7zRxtRJ32i6zCGrPZmYbKCuaKa6E/w=
-github.com/csunibo/config v1.0.0/go.mod h1:DnpQhVGqGH3ccu+Mdkmg/NdMAcEYv/BEXVTO/lGU+so=
-github.com/csunibo/config-parser-go v0.1.7 h1:CKimZoBPrPaee4wj/KA0ONWE1I7ZIO8MOYCxqKJsurU=
-github.com/csunibo/config-parser-go v0.1.7/go.mod h1:1yZBBlxmGGESQ0dDvJnnL/Rmims6HDXJR1QFEHz4xng=
-github.com/csunibo/config-parser-go v0.2.0 h1:95VBUAuZ/SlsXOD0gnrBD5yNfA8GAFbwIohyKCfnRUg=
-github.com/csunibo/config-parser-go v0.2.0/go.mod h1:9mNF5c5APvQ4oIqB58u+dHqZPaCz9gTP8c1nYEL4k34=
-github.com/csunibo/unibo-go v0.0.12 h1:tNcapp8PF53bRdOyy2ZldS/Wfk/N6fOGrdcg4KBbI90=
-github.com/csunibo/unibo-go v0.0.12/go.mod h1:h2+xnccHa7x48RNB6d07bpHQ01ozw4oihgDOlvVrJ9U=
+github.com/cartabinaria/config v1.1.0 h1:U90Bd1buX688D3BM3lr8YK1sHcZf+o09odijo1bSpSc=
+github.com/cartabinaria/config v1.1.0/go.mod h1:75k1qUVzdgzvNXziOTJdtAL8c6Q8OXPa28LYol0dmOw=
+github.com/cartabinaria/config-parser-go v0.3.0 h1:h52n2d+j+bN8SM5tJCPB4QXgyhzw8eIK+JgR6Kbhyqc=
+github.com/cartabinaria/config-parser-go v0.3.0/go.mod h1:l/3CKp/fdLaCctnrc0dFUI3VWE2JgVtI2zKBCjq95ZI=
+github.com/cartabinaria/unibo-go v0.1.0 h1:Owmjx7B/TzQvMOWsWJivhZJy6IKqAc6AyRJbO3+wVsw=
+github.com/cartabinaria/unibo-go v0.1.0/go.mod h1:HGg7Zktl6dqF/WIxkSk3veu91ufC2PkdEROebldN6Cc=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/mitchellh/mapstructure v1.5.0 h1:jeMsZIYE/09sWLaz43PL7Gy6RuMjD2eJVyuac5Z2hdY=
@@ -16,8 +14,6 @@ github.com/samuelemusiani/telegram-bot-api v0.0.6 h1:OH7/qXD4E/wDzd6UcNOJZgw9GWt
 github.com/samuelemusiani/telegram-bot-api v0.0.6/go.mod h1:/Sagg9PoVMvfJeQ4Dh4sasKOCRC1xsZJ2Kx9C/BSjW8=
 github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
-golang.org/x/exp v0.0.0-20231127185646-65229373498e h1:Gvh4YaCaXNs6dKTlfgismwWZKyjVZXwOPfIyUaqU3No=
-golang.org/x/exp v0.0.0-20231127185646-65229373498e/go.mod h1:iRJReGqOEeBhDZGkGbynYwcHlctCvnjTYIamk7uXpHI=
 golang.org/x/exp v0.0.0-20240909161429-701f63a606c0 h1:e66Fs6Z+fZTbFBAxKfP3PALWBtpfqks2bwGcexMxgtk=
 golang.org/x/exp v0.0.0-20240909161429-701f63a606c0/go.mod h1:2TbTHSBQa924w8M6Xs1QcRcFwyucIwBGpK1p2f1YFFY=
 golang.org/x/text v0.18.0 h1:XvMDiNzPAl0jr17s6W9lcaIhGUfUORdGCNsuLmPG224=

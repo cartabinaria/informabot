@@ -10,7 +10,7 @@ import (
 
 	tgbotapi "github.com/samuelemusiani/telegram-bot-api"
 
-	"github.com/csunibo/informabot/commands"
+	"github.com/cartabinaria/informabot/commands"
 )
 
 func (_ MessageData) HandleBotCallback(_bot *tgbotapi.BotAPI, _update *tgbotapi.Update, _callback_text string) {

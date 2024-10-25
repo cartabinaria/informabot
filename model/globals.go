@@ -8,7 +8,7 @@
 package model
 
 import (
-	"github.com/csunibo/config-parser-go"
+	"github.com/cartabinaria/config-parser-go"
 	"log"
 )
 

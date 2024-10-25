@@ -24,7 +24,7 @@
     "data": {
       "description": "C'è un problema tecnico/tattico, portalo all'attenzione di un maintainer",
       "response": "Maintainers, c'è bisogno del vostro aiuto \n",
-      "fallback": "Nessun maintainer è presente in questo gruppo. Riportate il problema direttamente sul gruppo di @csunibo nel topic Bot"
+      "fallback": "Nessun maintainer è presente in questo gruppo. Riportate il problema direttamente sul gruppo di @cartabinaria nel topic Bot"
     }
   },
   "unknown": {
@@ -77,11 +77,11 @@
       "text": "<b><i>\ud83d\udcbb AdmStaff</i></b>\n\n<a href='https://{{ .Domains.ADMStaffBase }}'>\ud83c\udf10Sito ufficiale e wiki</a>"
     }
   },
-  "csunibo": {
+  "cartabinaria": {
     "type": "message",
     "data": {
-      "description": "La pagina principale di CSUnibo",
-      "text": "<b><i>\ud83d\udcbb CSUnibo</i></b>\n\n<a href='https://csunibo.{{ .Domains.ADMStaffBase }}'>\ud83c\udf10Sito ufficiale</a>"
+      "description": "La pagina principale di CartaBinaria",
+      "text": "<b><i>\ud83d\udcbb CartaBinaria</i></b>\n\n<a href='https://cartabinaria.{{ .Domains.ADMStaffBase }}'>\ud83c\udf10Sito ufficiale</a>"
     }
   },
   "gruppi": {
@@ -102,8 +102,8 @@
   "materiali": {
     "type": "message",
     "data": {
-      "description": "Libri, materiali, prove e altro su CSUnibo",
-      "text": "<b>Appunti, esercizi, libri, prove e altre risorse</b>\n\ud83d\udcda <a href='https://risorse.{{ .Domains.ADMStaffBase }}'>Istanza principale</a>\n\ud83d\udcda <a href='https://dynamik.vercel.app'>Istanza di riserva</a>\n\ud83d\udcda <a href='https://csunibo.{{ .Domains.ADMStaffBase }}/wiki/raccolte-di-risorse/contribuire-a-un-insegnamento/index.html'>Come carico il mio materiale?</a>"
+      "description": "Libri, materiali, prove e altro su CartaBinaria",
+      "text": "<b>Appunti, esercizi, libri, prove e altre risorse</b>\n\ud83d\udcda <a href='https://risorse.{{ .Domains.ADMStaffBase }}'>Istanza principale</a>\n\ud83d\udcda <a href='https://dynamik.vercel.app'>Istanza di riserva</a>\n\ud83d\udcda <a href='https://cartabinaria.{{ .Domains.ADMStaffBase }}/wiki/raccolte-di-risorse/contribuire-a-un-insegnamento/index.html'>Come carico il mio materiale?</a>"
     }
   },
   "noncercogruppo": {
@@ -126,7 +126,7 @@
     "type": "message",
     "data": {
       "description": "Lezioni registrate",
-      "text": "<b>Registrazioni:</b>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/informatica'>Informatica</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/informatica-magistrale'>Informatica Magistrale</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/ingegneria'>Ingegneria Informatica</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/ingegneria-informatica-magistrale'>Ingegneria Informatica Magistrale</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/miscellanei/'>Altro</a>\n\nuser: csunibo\npass: 20rec24"
+      "text": "<b>Registrazioni:</b>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/informatica'>Informatica</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/informatica-magistrale'>Informatica Magistrale</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/ingegneria'>Ingegneria Informatica</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/ingegneria-informatica-magistrale'>Ingegneria Informatica Magistrale</a>\n  <a href='https://rec.{{ .Domains.ADMStaffBase }}/miscellanei/'>Altro</a>\n\nuser: cartabinaria\npass: 20rec24"
     }
   },
   "scelta": {

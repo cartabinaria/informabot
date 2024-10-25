@@ -11,7 +11,7 @@ import (
 	tgbotapi "github.com/samuelemusiani/telegram-bot-api"
 	"golang.org/x/exp/slices"
 
-	"github.com/csunibo/informabot/utils"
+	"github.com/cartabinaria/informabot/utils"
 )
 
 func (data MessageData) HandleBotCommand(*tgbotapi.BotAPI, *tgbotapi.Message) CommandResponse {

@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/csunibo/config-parser-go"
+	"github.com/cartabinaria/config-parser-go"
 	tgbotapi "github.com/samuelemusiani/telegram-bot-api"
 )
 
