@@ -141,8 +141,7 @@ func teachingToString(teaching cparser.Teaching) string {
 		b.WriteString(fmt.Sprintf("Professori:\n%s", buildEmails(teaching.Professors)))
 	}
 	if teaching.Name != "" {
-		b.WriteString(fmt.Sprintf("<a href='https://risorse.students.cs.unibo.it/%s/'>📚 Risorse (istanza principale)</a>\n", teaching.Url))
-		b.WriteString(fmt.Sprintf("<a href='https://dynamik.vercel.app/%s/'>📚 Risorse (istanza di riserva 1)</a>\n", teaching.Url))
+		b.WriteString(fmt.Sprintf("<a href='https://dynamik.vercel.app/%s/'>📚 Risorse</a>\n", teaching.Url))
 		b.WriteString(fmt.Sprintf("<a href='https://github.com/cartabinaria/%s/'>📂 Repository GitHub delle risorse</a>\n", teaching.Url))
 	}
 	if teaching.Chat != "" {
