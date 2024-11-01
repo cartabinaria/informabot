@@ -44,7 +44,7 @@
     "type": "message",
     "data": {
       "description": "Aggiungi lezioni al tuo calendario",
-      "text": "\ud83d\udcdd <a href='https://calendar.{{ .Domains.ADMStaffBase }}/'>Calendario</a>\n\ud83d\udcbb <a href='https://github.com/VaiTon/UniboCalendar'>Sorgente</a>"
+      "text": "\ud83d\udcdd <a href='https://calendar.{{ .Domains.ADMStaffBase }}/'>Calendario</a>\n\ud83d\udcbb <a href='https://github.com/cartabinaria/unibocalendar'>Sorgente</a>"
     }
   },
   "cercogruppo": {
