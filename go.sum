@@ -1,7 +1,7 @@
-github.com/cartabinaria/config v1.1.0 h1:U90Bd1buX688D3BM3lr8YK1sHcZf+o09odijo1bSpSc=
-github.com/cartabinaria/config v1.1.0/go.mod h1:75k1qUVzdgzvNXziOTJdtAL8c6Q8OXPa28LYol0dmOw=
-github.com/cartabinaria/config-parser-go v0.3.0 h1:h52n2d+j+bN8SM5tJCPB4QXgyhzw8eIK+JgR6Kbhyqc=
-github.com/cartabinaria/config-parser-go v0.3.0/go.mod h1:l/3CKp/fdLaCctnrc0dFUI3VWE2JgVtI2zKBCjq95ZI=
+github.com/cartabinaria/config v1.1.1 h1:NPJEVzjATnOdPAR1mz1xeCAUHBbpkmMrWyaNGVELbPE=
+github.com/cartabinaria/config v1.1.1/go.mod h1:75k1qUVzdgzvNXziOTJdtAL8c6Q8OXPa28LYol0dmOw=
+github.com/cartabinaria/config-parser-go v0.3.1 h1:uwCF0G8yfajIhvr/41ttl4LHiIkqtMZ1RTIqRwbth48=
+github.com/cartabinaria/config-parser-go v0.3.1/go.mod h1:nc1vUU+Y5tcEvogqWkvmkMGErHY4k3KuvNj7Gj7nPos=
 github.com/cartabinaria/unibo-go v0.1.0 h1:Owmjx7B/TzQvMOWsWJivhZJy6IKqAc6AyRJbO3+wVsw=
 github.com/cartabinaria/unibo-go v0.1.0/go.mod h1:HGg7Zktl6dqF/WIxkSk3veu91ufC2PkdEROebldN6Cc=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
