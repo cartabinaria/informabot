@@ -2,8 +2,8 @@ github.com/cartabinaria/config v1.1.1 h1:NPJEVzjATnOdPAR1mz1xeCAUHBbpkmMrWyaNGVE
 github.com/cartabinaria/config v1.1.1/go.mod h1:75k1qUVzdgzvNXziOTJdtAL8c6Q8OXPa28LYol0dmOw=
 github.com/cartabinaria/config-parser-go v0.3.1 h1:uwCF0G8yfajIhvr/41ttl4LHiIkqtMZ1RTIqRwbth48=
 github.com/cartabinaria/config-parser-go v0.3.1/go.mod h1:nc1vUU+Y5tcEvogqWkvmkMGErHY4k3KuvNj7Gj7nPos=
-github.com/cartabinaria/unibo-go v0.3.0 h1:3x6tZ1C0CMK2RGPVeW9g6dPEGNsF7VhVTXq2Hjy1rzE=
-github.com/cartabinaria/unibo-go v0.3.0/go.mod h1:Pos3mfCrFg9lkd4XJSJ/IwsRZmbUPuZrUvq+W3DzziI=
+github.com/cartabinaria/unibo-go v0.3.2 h1:3OQwbYiP2u+1ZhsvKqdlnIlQm2CfIdlwChHni1yY14Q=
+github.com/cartabinaria/unibo-go v0.3.2/go.mod h1:MteL3rAqgTmk6igszKUDrU5ABTFzneW+arlJ3t/ntko=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/mitchellh/mapstructure v1.5.0 h1:jeMsZIYE/09sWLaz43PL7Gy6RuMjD2eJVyuac5Z2hdY=
@@ -12,8 +12,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/samuelemusiani/telegram-bot-api v0.0.6 h1:OH7/qXD4E/wDzd6UcNOJZgw9GWthUKRB33ob1PSWnGI=
 github.com/samuelemusiani/telegram-bot-api v0.0.6/go.mod h1:/Sagg9PoVMvfJeQ4Dh4sasKOCRC1xsZJ2Kx9C/BSjW8=
-github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsTg=
-github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
+github.com/stretchr/testify v1.10.0 h1:Xv5erBjTwe/5IxqUQTdXv5kgmIvbHo3QQyRwhJsOfJA=
+github.com/stretchr/testify v1.10.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 golang.org/x/exp v0.0.0-20240909161429-701f63a606c0 h1:e66Fs6Z+fZTbFBAxKfP3PALWBtpfqks2bwGcexMxgtk=
 golang.org/x/exp v0.0.0-20240909161429-701f63a606c0/go.mod h1:2TbTHSBQa924w8M6Xs1QcRcFwyucIwBGpK1p2f1YFFY=
 golang.org/x/text v0.22.0 h1:bofq7m3/HAFvbF51jz3Q9wLg3jkvSPuiZu/pD1XwgtM=
