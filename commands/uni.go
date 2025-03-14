@@ -75,6 +75,7 @@ func GetTimeTable(courseType, courseName string, curriculum string, year int, da
 			b.WriteString(fmt.Sprintf("  🏢 %s - %s\n", event.Classrooms[0].BuildingDesc, event.Classrooms[0].FloorDesc))
 			b.WriteString(fmt.Sprintf("  📍 %s\n", event.Classrooms[0].AddressDesc))
 		}
+		b.WriteString("\n\n")
 	}
 
 	return b.String(), nil
