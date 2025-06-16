@@ -1,3 +1,10 @@
+// SPDX-FileCopyrightText: 2023 Angelo 'Flecart' Huang <xuanqiang.huang@studio.unibo.it>
+// SPDX-FileCopyrightText: 2023 Samuele Musiani <samu@teapot.ovh>
+// SPDX-FileCopyrightText: 2023 Santo Cariotti <santo@dcariotti.me>
+// SPDX-FileCopyrightText: 2023 Eyad Issa <eyadlorenzo@gmail.com>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 // Package model contains the structure and functions used to pass information
 // between the computations of the bot and the driver code, in bot.go
 package model

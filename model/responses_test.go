@@ -1,3 +1,9 @@
+// SPDX-FileCopyrightText: 2023 Gabriele Crestanello <gabriele.crestanello@studio.unibo.it>
+// SPDX-FileCopyrightText: 2023 Samuele Musiani <samu@teapot.ovh>
+// SPDX-FileCopyrightText: 2023 Santo Cariotti <santo@dcariotti.me>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 package model
 
 import (
