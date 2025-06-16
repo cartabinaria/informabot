@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2023 Gabriele Crestanello <gabriele.crestanello@studio.unibo.it>
+//
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 package bot
 
 import "testing"
