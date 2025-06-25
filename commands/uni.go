@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"slices"
 	"strings"
 	"time"
 
 	"github.com/cartabinaria/unibo-go/timetable"
-	"golang.org/x/exp/slices"
 )
 
 const TIMEFORMAT = "2006-01-02T15:04:05"

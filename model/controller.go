@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"slices"
 	"sort"
 	"strings"
 	"time"
 
 	tgbotapi "github.com/samuelemusiani/telegram-bot-api"
-	"golang.org/x/exp/slices"
 
 	"github.com/cartabinaria/informabot/utils"
 )

@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/mitchellh/mapstructure"
-	"golang.org/x/exp/slices"
 
-	"github.com/cartabinaria/config-parser-go"
+	cparser "github.com/cartabinaria/config-parser-go"
 	"github.com/cartabinaria/informabot/utils"
 )
 
