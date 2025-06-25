@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/mitchellh/mapstructure"
-	"golang.org/x/exp/slices"
+	"slices"
 
 	"github.com/cartabinaria/config-parser-go"
 	"github.com/cartabinaria/informabot/utils"

@@ -9,7 +9,7 @@ import (
 	"time"
 
 	tgbotapi "github.com/samuelemusiani/telegram-bot-api"
-	"golang.org/x/exp/slices"
+	"slices"
 
 	"github.com/cartabinaria/informabot/utils"
 )

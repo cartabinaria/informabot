@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 	"log/slog"
+	"slices"
 	"strings"
 
 	tgbotapi "github.com/samuelemusiani/telegram-bot-api"
-	"golang.org/x/exp/slices"
 
 	"github.com/cartabinaria/config-parser-go"
 	"github.com/cartabinaria/informabot/model"
