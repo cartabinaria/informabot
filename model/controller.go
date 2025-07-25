@@ -74,31 +74,54 @@ func (data IssueData) HandleBotCommand(bot *tgbotapi.BotAPI, message *tgbotapi.M
 }
 
 func (data LookingForData) HandleBotCommand(bot *tgbotapi.BotAPI, message *tgbotapi.Message) CommandResponse {
+    var chatMembers []tgbotapi.ChatMember
 	chatTitle := strings.ToLower(message.Chat.Title)
 
-	if (message.Chat.Type != "group" && message.Chat.Type != "supergroup") ||
+    if (message.Chat.Type != "group" && message.Chat.Type != "supergroup") ||
 		isAMainGroup(chatTitle) {
 		log.Print("Error [LookingForData]: not a group or blacklisted")
 		return makeResponseWithText(data.ChatError)
 	}
 
-	var chatId = message.Chat.ID
+    var chatId = message.Chat.ID
 	var senderID = message.From.ID
-
 	log.Printf("LookingForData: %d, %d", chatId, senderID)
-	if chatArray, ok := ProjectsGroups[chatId]; ok {
-		if !slices.Contains(chatArray, senderID) {
-			ProjectsGroups[chatId] = append(chatArray, senderID)
-		}
-	} else {
-		ProjectsGroups[chatId] = []int64{senderID}
-	}
-	err := SaveProjectsGroups(ProjectsGroups)
-	if err != nil {
-		log.Printf("Error [LookingForData]: %s\n", err)
-	}
 
-	chatMembers := utils.GetChatMembers(bot, message.Chat.ID, ProjectsGroups[chatId])
+    if message.IsTopicMessage && isAMainGroup(chatTitle) {
+        //handle "lookingFor" with topics
+        var topicId = message.MessageThreadID
+        if topics, ok := ProjectsGroupsTopics[chatId]; ok {
+            if topicChatArray, ok := topics[topicId]; ok {
+                if !slices.Contains(topicChatArray, senderID) {
+                    ProjectsGroupsTopics[chatId][topicId] = append(topicChatArray, senderID)
+                }
+            } else {
+                ProjectsGroupsTopics[chatId][topicId] = []int64{senderID}
+            }
+            err := SaveProjectsGroupsTopics(ProjectsGroupsTopics)
+            if err != nil {
+                log.Printf("Error [LookingForData]: %s\n", err)
+            }
+
+        }
+        chatMembers = utils.GetChatMembers(bot, message.Chat.ID, ProjectsGroupsTopics[chatId][topicId])
+    } else {
+        //handle "lookingFor" without topics
+        if chatArray, ok := ProjectsGroups[chatId]; ok {
+            if !slices.Contains(chatArray, senderID) {
+                ProjectsGroups[chatId] = append(chatArray, senderID)
+            }
+        } else {
+            ProjectsGroups[chatId] = []int64{senderID}
+        }
+        err := SaveProjectsGroups(ProjectsGroups)
+        if err != nil {
+            log.Printf("Error [LookingForData]: %s\n", err)
+        }
+
+        chatMembers = utils.GetChatMembers(bot, message.Chat.ID, ProjectsGroups[chatId])
+    }
+
 
 	var resultMsg string
 	// Careful: additional arguments must be passed in the right order!

@@ -60,6 +60,8 @@ func GetActionFromType(name string, commandType string) Action {
 // SECTION GLOBAL JSON STRUCTS
 type ProjectsGroupsStruct = map[int64][]int64
 
+type ProjectsGroupsTopicsStruct = map[int64]map[int64][]int64
+
 type AutoReply struct {
 	Text     string `json:"text"`
 	IsStrict bool   `json:"strict"`

@@ -112,5 +112,6 @@ dist
 # Informabot
 
 json/groups.json
+json/topics.json
 *.env
 informabot

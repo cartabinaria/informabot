@@ -29,6 +29,7 @@ var (
 	Settings        SettingsStruct
 	Teachings       map[string]cparser.Teaching
 	ProjectsGroups  ProjectsGroupsStruct
+	ProjectsGroupsTopics  ProjectsGroupsTopicsStruct
 	Timetables      map[string]cparser.Timetable
 	Maintainers     []cparser.Maintainer
 	Representatives map[string]cparser.Representative
@@ -70,6 +71,11 @@ func InitGlobals() {
 	ProjectsGroups, err = ParseOrCreateProjectsGroups()
 	if err != nil {
 		log.Fatalf("Error reading or creating groups.json file: %s", err.Error())
+	}
+
+    ProjectsGroupsTopics, err = ParseOrCreateProjectsGroupsTopics()
+	if err != nil {
+		log.Fatalf("Error reading or creating topics.json file: %s", err.Error())
 	}
 
 	Timetables, err = ParseTimetables()
