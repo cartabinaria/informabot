@@ -74,54 +74,60 @@ func (data IssueData) HandleBotCommand(bot *tgbotapi.BotAPI, message *tgbotapi.M
 }
 
 func (data LookingForData) HandleBotCommand(bot *tgbotapi.BotAPI, message *tgbotapi.Message) CommandResponse {
-    var chatMembers []tgbotapi.ChatMember
+	var chatMembers []tgbotapi.ChatMember
 	chatTitle := strings.ToLower(message.Chat.Title)
 
-    if (message.Chat.Type != "group" && message.Chat.Type != "supergroup") ||
-		isAMainGroup(chatTitle) {
+	if message.Chat.Type != "group" && message.Chat.Type != "supergroup" {
 		log.Print("Error [LookingForData]: not a group or blacklisted")
 		return makeResponseWithText(data.ChatError)
 	}
 
-    var chatId = message.Chat.ID
+	var chatId = message.Chat.ID
 	var senderID = message.From.ID
 	log.Printf("LookingForData: %d, %d", chatId, senderID)
 
-    if message.IsTopicMessage && isAMainGroup(chatTitle) {
-        //handle "lookingFor" with topics
-        var topicId = message.MessageThreadID
-        if topics, ok := ProjectsGroupsTopics[chatId]; ok {
-            if topicChatArray, ok := topics[topicId]; ok {
-                if !slices.Contains(topicChatArray, senderID) {
-                    ProjectsGroupsTopics[chatId][topicId] = append(topicChatArray, senderID)
-                }
-            } else {
-                ProjectsGroupsTopics[chatId][topicId] = []int64{senderID}
-            }
-            err := SaveProjectsGroupsTopics(ProjectsGroupsTopics)
-            if err != nil {
-                log.Printf("Error [LookingForData]: %s\n", err)
-            }
+	if message.IsTopicMessage && isAMainGroup(chatTitle) {
+		//handle "lookingFor" with topics
+		var topicId = int64(message.MessageThreadID)
+		if _, ok := ProjectsGroupsTopics[chatId]; !ok {
+			// create map of topics for the chat
+			ProjectsGroupsTopics[chatId] = make(map[int64][]int64)
+		}
 
-        }
-        chatMembers = utils.GetChatMembers(bot, message.Chat.ID, ProjectsGroupsTopics[chatId][topicId])
-    } else {
-        //handle "lookingFor" without topics
-        if chatArray, ok := ProjectsGroups[chatId]; ok {
-            if !slices.Contains(chatArray, senderID) {
-                ProjectsGroups[chatId] = append(chatArray, senderID)
-            }
-        } else {
-            ProjectsGroups[chatId] = []int64{senderID}
-        }
-        err := SaveProjectsGroups(ProjectsGroups)
-        if err != nil {
-            log.Printf("Error [LookingForData]: %s\n", err)
-        }
+		if topicChatArray, ok := ProjectsGroupsTopics[chatId][topicId]; ok {
+			if !slices.Contains(topicChatArray, senderID) {
+				ProjectsGroupsTopics[chatId][topicId] = append(topicChatArray, senderID)
+			}
+		} else {
+			ProjectsGroupsTopics[chatId][topicId] = []int64{senderID}
+		}
 
-        chatMembers = utils.GetChatMembers(bot, message.Chat.ID, ProjectsGroups[chatId])
-    }
+		err := SaveProjectsGroupsTopics(ProjectsGroupsTopics)
+		if err != nil {
+			log.Printf("Error [LookingForData]: %s\n", err)
+		}
 
+		chatMembers = utils.GetChatMembers(bot, message.Chat.ID, ProjectsGroupsTopics[chatId][topicId])
+	} else if !message.IsTopicMessage && !isAMainGroup(chatTitle) {
+		//handle "lookingFor" without topics
+		if chatArray, ok := ProjectsGroups[chatId]; ok {
+			if !slices.Contains(chatArray, senderID) {
+				ProjectsGroups[chatId] = append(chatArray, senderID)
+			}
+		} else {
+			ProjectsGroups[chatId] = []int64{senderID}
+		}
+
+		err := SaveProjectsGroups(ProjectsGroups)
+		if err != nil {
+			log.Printf("Error [LookingForData]: %s\n", err)
+		}
+
+		chatMembers = utils.GetChatMembers(bot, message.Chat.ID, ProjectsGroups[chatId])
+	} else {
+		log.Print("Error [LookingForData]: not a group or blacklisted")
+		return makeResponseWithText(data.ChatError)
+	}
 
 	var resultMsg string
 	// Careful: additional arguments must be passed in the right order!
@@ -149,32 +155,64 @@ func (data NotLookingForData) HandleBotCommand(_ *tgbotapi.BotAPI, message *tgbo
 
 	chatTitle := strings.ToLower(message.Chat.Title)
 
-	if (message.Chat.Type != "group" && message.Chat.Type != "supergroup") ||
-		isAMainGroup(chatTitle) {
+	if message.Chat.Type != "group" && message.Chat.Type != "supergroup" {
 		log.Print("Error [NotLookingForData]: not a group or yearly group")
 		return makeResponseWithText(data.ChatError)
-	} else if _, ok := ProjectsGroups[message.Chat.ID]; !ok {
-		log.Print("Info [NotLookingForData]: group empty, user not found")
-		return makeResponseWithText(fmt.Sprintf(data.NotFoundError, message.Chat.Title))
 	}
 
 	var chatId = message.Chat.ID
 	var senderId = message.From.ID
 
-	var msg string
-	if idx := slices.Index(ProjectsGroups[chatId], senderId); idx == -1 {
-		log.Print("Info [NotLookingForData]: user not found in group")
-		msg = fmt.Sprintf(data.NotFoundError, chatTitle)
-	} else {
-		ProjectsGroups[chatId] = append(ProjectsGroups[chatId][:idx], ProjectsGroups[chatId][idx+1:]...)
-		err := SaveProjectsGroups(ProjectsGroups)
-		if err != nil {
-			log.Printf("Error [NotLookingForData]: %s\n", err)
+	var resultMsg string
+
+	if message.IsTopicMessage && isAMainGroup(chatTitle) {
+		// handle "notLookingFor" with topics
+		var topicId = int64(message.MessageThreadID)
+		if _, ok := ProjectsGroupsTopics[chatId]; !ok {
+			// create map of topics for the chat
+			ProjectsGroupsTopics[chatId] = make(map[int64][]int64)
 		}
-		msg = fmt.Sprintf(data.Text, chatTitle)
+
+		if _, ok := ProjectsGroupsTopics[chatId][topicId]; !ok {
+			log.Print("Info [NotLookingForData]: group empty, user not found")
+			return makeResponseWithText(fmt.Sprintf(data.NotFoundError, message.Chat.Title))
+		}
+
+		if idx := slices.Index(ProjectsGroupsTopics[chatId][topicId], senderId); idx == -1 {
+			log.Print("Info [NotLookingForData]: user not found in group")
+			resultMsg = fmt.Sprintf(data.NotFoundError, chatTitle)
+		} else {
+			ProjectsGroupsTopics[chatId][topicId] = slices.Delete(ProjectsGroupsTopics[chatId][topicId], idx, idx+1)
+			err := SaveProjectsGroupsTopics(ProjectsGroupsTopics)
+			if err != nil {
+				log.Printf("Error [NotLookingForData]: %s\n", err)
+			}
+			resultMsg = fmt.Sprintf(data.Text, chatTitle)
+		}
+	} else if !message.IsTopicMessage && !isAMainGroup(chatTitle) {
+		// handle "notLookingFor" without topics
+		if _, ok := ProjectsGroups[chatId]; !ok {
+			log.Print("Info [NotLookingForData]: group empty, user not found")
+			return makeResponseWithText(fmt.Sprintf(data.NotFoundError, message.Chat.Title))
+		}
+
+		if idx := slices.Index(ProjectsGroups[chatId], senderId); idx == -1 {
+			log.Print("Info [NotLookingForData]: user not found in group")
+			resultMsg = fmt.Sprintf(data.NotFoundError, chatTitle)
+		} else {
+			ProjectsGroups[chatId] = slices.Delete(ProjectsGroups[chatId], idx, idx+1)
+			err := SaveProjectsGroups(ProjectsGroups)
+			if err != nil {
+				log.Printf("Error [NotLookingForData]: %s\n", err)
+			}
+			resultMsg = fmt.Sprintf(data.Text, chatTitle)
+		}
+	} else {
+		log.Print("Error [NotLookingForData]: not a group or blacklisted")
+		return makeResponseWithText(data.ChatError)
 	}
 
-	return makeResponseWithText(msg)
+	return makeResponseWithText(resultMsg)
 }
 
 func (data Lectures) HandleBotCommand(_ *tgbotapi.BotAPI, message *tgbotapi.Message) CommandResponse {

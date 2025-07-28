@@ -26,10 +26,10 @@ import (
 )
 
 const (
-	jsonPath           = "./json/"
-	ProjectsGroupsFile = "groups.json"
-    ProjectsGroupsTopicsFile = "topics.json"
-	configSubpath      = "config/"
+	jsonPath                 = "./json/"
+	ProjectsGroupsFile       = "groups.json"
+	ProjectsGroupsTopicsFile = "topics.json"
+	configSubpath            = "config/"
 )
 
 func ParseAutoReplies() (autoReplies []AutoReply, err error) {
@@ -202,7 +202,7 @@ func ParseOrCreateProjectsGroups() (ProjectsGroupsStruct, error) {
 func ParseOrCreateProjectsGroupsTopics() (ProjectsGroupsTopicsStruct, error) {
 	groupsTopics := make(ProjectsGroupsTopicsStruct)
 
-	filepath := filepath.Join(jsonPath, ProjectsGroupsFile)
+	filepath := filepath.Join(jsonPath, ProjectsGroupsTopicsFile)
 	byteValue, err := os.ReadFile(filepath)
 	if errors.Is(err, os.ErrNotExist) {
 		return groupsTopics, nil
@@ -225,6 +225,11 @@ func ParseOrCreateProjectsGroupsTopics() (ProjectsGroupsTopicsStruct, error) {
 func SaveProjectsGroups(groups ProjectsGroupsStruct) error {
 	filepath := filepath.Join(jsonPath, ProjectsGroupsFile)
 	return utils.WriteJSONFile(filepath, groups)
+}
+
+func SaveProjectsGroupsTopics(groupsTopics ProjectsGroupsTopicsStruct) error {
+	filepath := filepath.Join(jsonPath, ProjectsGroupsTopicsFile)
+	return utils.WriteJSONFile(filepath, groupsTopics)
 }
 
 func ParseTimetables() (timetables map[string]cparser.Timetable, err error) {
