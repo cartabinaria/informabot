@@ -51,8 +51,8 @@
     "type": "lookingFor",
     "data": {
       "description": "Cerca un gruppo di progetto",
-      "singularText": "Una persona cerca un gruppo in <b>\"%s\"</b>:\n",
-      "pluralText": "<b>%d</b> persone cercano gruppi in <b>\"%s\"</b>:\n",
+      "singularText": "Una persona cerca un gruppo in %s:\n",
+      "pluralText": "<b>%d</b> persone cercano gruppi in %s:\n",
       "chatError": "Questo comando \u00e8 riservato alle chat dei gruppi degli insegnamenti."
     }
   },
@@ -110,9 +110,9 @@
     "type": "notLookingFor",
     "data": {
       "description": "Smetti di cercare un gruppo di progetto",
-      "text": "Non sei pi\u00f9 nella lista di chi cerca gruppi in \"%s\".",
+      "text": "Non sei pi\u00f9 nella lista di chi cerca gruppi in %s.",
       "chatError": "Questo comando \u00e8 riservato alle chat dei gruppi degli insegnamenti.",
-      "notFoundError": "Neanche prima cercavi gruppi in \"%s\"."
+      "notFoundError": "Neanche prima cercavi gruppi in %s."
     }
   },
   "ludopatico": {

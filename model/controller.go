@@ -132,9 +132,17 @@ func (data LookingForData) HandleBotCommand(bot *tgbotapi.BotAPI, message *tgbot
 	var resultMsg string
 	// Careful: additional arguments must be passed in the right order!
 	if len(chatMembers) == 1 {
-		resultMsg = fmt.Sprintf(data.SingularText, message.Chat.Title)
+		if message.IsTopicMessage {
+			resultMsg = fmt.Sprintf(data.SingularText, "questo topic")
+		} else {
+			resultMsg = fmt.Sprintf(data.SingularText, "<b>\""+chatTitle+"\"</b>")
+		}
 	} else {
-		resultMsg = fmt.Sprintf(data.PluralText, len(chatMembers), message.Chat.Title)
+		if message.IsTopicMessage {
+			resultMsg = fmt.Sprintf(data.SingularText, len(chatMembers), "questo topic")
+		} else {
+			resultMsg = fmt.Sprintf(data.PluralText, len(chatMembers), "<b>\""+chatTitle+"\"</b>")
+		}
 	}
 
 	for _, member := range chatMembers {
@@ -175,37 +183,37 @@ func (data NotLookingForData) HandleBotCommand(_ *tgbotapi.BotAPI, message *tgbo
 
 		if _, ok := ProjectsGroupsTopics[chatId][topicId]; !ok {
 			log.Print("Info [NotLookingForData]: group empty, user not found")
-			return makeResponseWithText(fmt.Sprintf(data.NotFoundError, message.Chat.Title))
+			return makeResponseWithText(fmt.Sprintf(data.NotFoundError, "questo topic"))
 		}
 
 		if idx := slices.Index(ProjectsGroupsTopics[chatId][topicId], senderId); idx == -1 {
 			log.Print("Info [NotLookingForData]: user not found in group")
-			resultMsg = fmt.Sprintf(data.NotFoundError, chatTitle)
+			resultMsg = fmt.Sprintf(data.NotFoundError, "questo topic")
 		} else {
 			ProjectsGroupsTopics[chatId][topicId] = slices.Delete(ProjectsGroupsTopics[chatId][topicId], idx, idx+1)
 			err := SaveProjectsGroupsTopics(ProjectsGroupsTopics)
 			if err != nil {
 				log.Printf("Error [NotLookingForData]: %s\n", err)
 			}
-			resultMsg = fmt.Sprintf(data.Text, chatTitle)
+			resultMsg = fmt.Sprintf(data.Text, "questo topic")
 		}
 	} else if !message.IsTopicMessage && !isAMainGroup(chatTitle) {
 		// handle "notLookingFor" without topics
 		if _, ok := ProjectsGroups[chatId]; !ok {
 			log.Print("Info [NotLookingForData]: group empty, user not found")
-			return makeResponseWithText(fmt.Sprintf(data.NotFoundError, message.Chat.Title))
+			return makeResponseWithText(fmt.Sprintf(data.NotFoundError, "<b>\""+chatTitle+"\"</b>"))
 		}
 
 		if idx := slices.Index(ProjectsGroups[chatId], senderId); idx == -1 {
 			log.Print("Info [NotLookingForData]: user not found in group")
-			resultMsg = fmt.Sprintf(data.NotFoundError, chatTitle)
+			resultMsg = fmt.Sprintf(data.NotFoundError, "<b>\""+chatTitle+"\"</b>")
 		} else {
 			ProjectsGroups[chatId] = slices.Delete(ProjectsGroups[chatId], idx, idx+1)
 			err := SaveProjectsGroups(ProjectsGroups)
 			if err != nil {
 				log.Printf("Error [NotLookingForData]: %s\n", err)
 			}
-			resultMsg = fmt.Sprintf(data.Text, chatTitle)
+			resultMsg = fmt.Sprintf(data.Text, "<b>\""+chatTitle+"\"</b>")
 		}
 	} else {
 		log.Print("Error [NotLookingForData]: not a group or blacklisted")
