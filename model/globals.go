@@ -22,16 +22,17 @@ import (
 )
 
 var (
-	Autoreplies     []AutoReply
-	Actions         []Action
-	Degrees         map[string]cparser.Degree
-	MemeList        []Meme
-	Settings        SettingsStruct
-	Teachings       map[string]cparser.Teaching
-	ProjectsGroups  ProjectsGroupsStruct
-	Timetables      map[string]cparser.Timetable
-	Maintainers     []cparser.Maintainer
-	Representatives map[string]cparser.Representative
+	Autoreplies          []AutoReply
+	Actions              []Action
+	Degrees              map[string]cparser.Degree
+	MemeList             []Meme
+	Settings             SettingsStruct
+	Teachings            map[string]cparser.Teaching
+	ProjectsGroups       ProjectsGroupsStruct
+	ProjectsGroupsTopics ProjectsGroupsTopicsStruct
+	Timetables           map[string]cparser.Timetable
+	Maintainers          []cparser.Maintainer
+	Representatives      map[string]cparser.Representative
 )
 
 func InitGlobals() {
@@ -70,6 +71,11 @@ func InitGlobals() {
 	ProjectsGroups, err = ParseOrCreateProjectsGroups()
 	if err != nil {
 		log.Fatalf("Error reading or creating groups.json file: %s", err.Error())
+	}
+
+	ProjectsGroupsTopics, err = ParseOrCreateProjectsGroupsTopics()
+	if err != nil {
+		log.Fatalf("Error reading or creating topics.json file: %s", err.Error())
 	}
 
 	Timetables, err = ParseTimetables()
