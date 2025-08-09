@@ -290,8 +290,9 @@ func (data InvalidData) HandleBotCommand(*tgbotapi.BotAPI, *tgbotapi.Message) Co
 }
 
 func isAMainGroup(name string) bool {
+	lname := strings.ToLower(name)
 	for _, i := range Settings.MainGroupsIdentifiers {
-		if strings.Contains(name, i) {
+		if strings.Contains(lname, i) {
 			return true
 		}
 	}
