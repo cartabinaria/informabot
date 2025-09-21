@@ -139,7 +139,7 @@ func (data LookingForData) HandleBotCommand(bot *tgbotapi.BotAPI, message *tgbot
 		}
 	} else {
 		if message.IsTopicMessage {
-			resultMsg = fmt.Sprintf(data.SingularText, len(chatMembers), "questo topic")
+			resultMsg = fmt.Sprintf(data.SingularText, "questo topic")
 		} else {
 			resultMsg = fmt.Sprintf(data.PluralText, len(chatMembers), "<b>\""+chatTitle+"\"</b>")
 		}
