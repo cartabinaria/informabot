@@ -39,17 +39,17 @@ func InitGlobals() {
 	var err error
 	Autoreplies, err = ParseAutoReplies()
 	if err != nil {
-		log.Fatalf("Error reading autoreply.json file: %s", err.Error())
+		log.Fatalf("Error parsing autoreplies: %s", err.Error())
 	}
 
 	Teachings, err = ParseTeachings()
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatalf("Error parsing teachings: %s", err.Error())
 	}
 
 	Degrees, err = ParseDegrees()
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatalf("Error parsing degrees: %s", err.Error())
 	}
 
 	// This should be executed AFTER ParseDegrees()
@@ -80,7 +80,7 @@ func InitGlobals() {
 
 	Timetables, err = ParseTimetables()
 	if err != nil {
-		log.Fatalf(err.Error())
+		log.Fatalf("Error parsing timetables: %s", err.Error())
 	}
 
 	Maintainers, err = ParseMaintainers()
