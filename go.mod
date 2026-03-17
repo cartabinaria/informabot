@@ -8,14 +8,14 @@
 
 module github.com/cartabinaria/informabot
 
-go 1.23.0
+go 1.25.0
 
 require (
 	github.com/cartabinaria/config-parser-go v0.3.4
-	github.com/cartabinaria/unibo-go v0.4.0
+	github.com/cartabinaria/unibo-go v0.5.1
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/samuelemusiani/telegram-bot-api v0.0.6
-	golang.org/x/text v0.28.0
+	golang.org/x/text v0.35.0
 )
 
-require github.com/cartabinaria/config v1.1.4 // indirect
+require github.com/cartabinaria/config v1.2.0 // indirect
