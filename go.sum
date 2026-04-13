@@ -1,11 +1,7 @@
-github.com/cartabinaria/config v1.1.4 h1:kJUgdiOUgwSR5E+f54wU+yP3EejgMgi+h+3i4Vt/l7Y=
-github.com/cartabinaria/config v1.1.4/go.mod h1:XxMJb9rJZaRHO5qqsrT+JOnTU8u8fpGaYIIvgp0c5EY=
 github.com/cartabinaria/config v1.2.0 h1:OHbLih7dhOLQut+O0Qfd9cDN3XEpcjR8t8KWtNPa4G0=
 github.com/cartabinaria/config v1.2.0/go.mod h1:XxMJb9rJZaRHO5qqsrT+JOnTU8u8fpGaYIIvgp0c5EY=
 github.com/cartabinaria/config-parser-go v0.3.4 h1:QW9Ux0bq8kAg6CozVokUx4FtDKC+7KanphsXP2GiHL4=
 github.com/cartabinaria/config-parser-go v0.3.4/go.mod h1:MpR9TEhb2cIg19FAf3yR4mNwYGkfCuPpBbtX/hTd1KU=
-github.com/cartabinaria/unibo-go v0.4.0 h1:LIe4smqrNp2Q7MFQ+CqRINj6jjShFAxgf82+LwZXyJ4=
-github.com/cartabinaria/unibo-go v0.4.0/go.mod h1:MteL3rAqgTmk6igszKUDrU5ABTFzneW+arlJ3t/ntko=
 github.com/cartabinaria/unibo-go v0.5.1 h1:4+MC0cd1k5iTKRLIoVQJwpSUFZYYpyDly6lTFIXCp84=
 github.com/cartabinaria/unibo-go v0.5.1/go.mod h1:4ZbG6QWkp8Z9ROBBNo6VPpaeHcbhUJeYMS+Kp3/KlPA=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
@@ -16,12 +12,9 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/samuelemusiani/telegram-bot-api v0.0.6 h1:OH7/qXD4E/wDzd6UcNOJZgw9GWthUKRB33ob1PSWnGI=
 github.com/samuelemusiani/telegram-bot-api v0.0.6/go.mod h1:/Sagg9PoVMvfJeQ4Dh4sasKOCRC1xsZJ2Kx9C/BSjW8=
-github.com/stretchr/testify v1.10.0 h1:Xv5erBjTwe/5IxqUQTdXv5kgmIvbHo3QQyRwhJsOfJA=
-github.com/stretchr/testify v1.10.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
-golang.org/x/text v0.28.0 h1:rhazDwis8INMIwQ4tpjLDzUhx6RlXqZNPEM0huQojng=
-golang.org/x/text v0.28.0/go.mod h1:U8nCwOR8jO/marOQ0QbDiOngZVEBB7MAiitBuMjXiNU=
-golang.org/x/text v0.35.0 h1:JOVx6vVDFokkpaq1AEptVzLTpDe9KGpj5tR4/X+ybL8=
-golang.org/x/text v0.35.0/go.mod h1:khi/HExzZJ2pGnjenulevKNX1W67CUy0AsXcNubPGCA=
+github.com/stretchr/testify v1.11.1/go.mod h1:wZwfW3scLgRK+23gO65QZefKpKQRnfz6sD981Nm4B6U=
+golang.org/x/text v0.36.0 h1:JfKh3XmcRPqZPKevfXVpI1wXPTqbkE5f7JA92a55Yxg=
+golang.org/x/text v0.36.0/go.mod h1:NIdBknypM8iqVmPiuco0Dh6P5Jcdk8lJL0CUebqK164=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
