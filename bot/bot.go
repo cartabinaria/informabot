@@ -10,6 +10,7 @@
 package bot
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"log/slog"
@@ -45,40 +46,61 @@ func run(bot *tgbotapi.BotAPI) {
 	updates := bot.GetUpdatesChan(u)
 
 	for update := range updates {
-
-		if update.CallbackQuery != nil { // first process callback queries
-
-			callbackText := update.CallbackQuery.Data
-
-			callback := tgbotapi.NewCallback(update.CallbackQuery.ID, callbackText)
-			if _, err := bot.Request(callback); err != nil {
-				log.Printf("Error [bot.Request() for the callback]: %s\n", err)
-				continue
-			}
-
-			if strings.HasPrefix(callbackText, "lectures_") {
-				handleCallback(bot, &update, "lezioni", callbackText)
-			} else if strings.HasPrefix(callbackText, "representatives_") {
-				handleCallback(bot, &update, "rappresentanti", callbackText)
-			}
-
-			continue
-		} else if update.Message != nil {
-			if filterMessage(bot, update.Message) {
-				continue
-			} else if update.Message.IsCommand() {
-				handleCommand(bot, &update)
-			} else {
-				handleAutoreplies(bot, &update)
-			}
-		} else {
-			slog.Debug("ignoring unknown update", "update", update)
-		}
-
+		handleUpdate(bot, &update)
 	}
 }
 
-type handlerBehavior = func(*tgbotapi.BotAPI, *tgbotapi.Update, string) bool
+// Model callbacks keep their existing error handling through DataInterface.
+func handleUpdate(bot *tgbotapi.BotAPI, update *tgbotapi.Update) {
+	var err error
+	var context string
+	if update.CallbackQuery != nil { // first process callback queries
+		callbackText := update.CallbackQuery.Data
+
+		callback := tgbotapi.NewCallback(update.CallbackQuery.ID, callbackText)
+		context = "callback acknowledgement"
+		if _, err = bot.Request(callback); err == nil {
+			if strings.HasPrefix(callbackText, "lectures_") {
+				handleCallback(bot, update, "lezioni", callbackText)
+			} else if strings.HasPrefix(callbackText, "representatives_") {
+				handleCallback(bot, update, "rappresentanti", callbackText)
+			}
+		}
+	} else if update.Message != nil {
+		if filterMessage(bot, update.Message) {
+			return
+		} else if update.Message.IsCommand() {
+			context = "command"
+			err = handleCommand(bot, update)
+		} else {
+			context = "autoreply"
+			err = handleAutoreplies(bot, update)
+		}
+	} else {
+		slog.Debug("ignoring unknown update", "update", update)
+	}
+	if err != nil {
+		log.Printf("Error delivering %s: %s", context, deliveryErrorClasses(err))
+	}
+}
+
+// Do not format error messages: they can contain Telegram tokens or user data.
+func deliveryErrorClasses(err error) string {
+	if joined, ok := err.(interface{ Unwrap() []error }); ok {
+		var classes []string
+		for _, cause := range joined.Unwrap() {
+			classes = append(classes, deliveryErrorClasses(cause))
+		}
+		return strings.Join(classes, ",")
+	}
+	var apiError *tgbotapi.Error
+	if errors.As(err, &apiError) {
+		return "telegram_api"
+	}
+	return "request"
+}
+
+type handlerBehavior = func(*tgbotapi.BotAPI, *tgbotapi.Update, string) (bool, error)
 type handler = struct {
 	handlerBehavior
 	string
@@ -91,22 +113,22 @@ var handlers = []handler{
 	{handleMeme, "meme"},
 	{handleUnknown, "unknown"}}
 
-func handleUnknown(bot *tgbotapi.BotAPI, update *tgbotapi.Update, _ string) bool {
+func handleUnknown(bot *tgbotapi.BotAPI, update *tgbotapi.Update, _ string) (bool, error) {
 	// If the bot is in a group and the command does NOT have the recipient bot
 	// nothing is done
 	if !update.Message.Chat.IsPrivate() {
 		commandWithAt := update.Message.CommandWithAt()
 		atIndex := strings.Index(commandWithAt, "@")
 		if atIndex == -1 {
-			return true
+			return true, nil
 		}
 	}
 
-	handleAction(bot, update, "unknown")
-	return true
+	_, err := handleAction(bot, update, "unknown")
+	return true, err
 }
 
-func handleCommand(bot *tgbotapi.BotAPI, update *tgbotapi.Update) {
+func handleCommand(bot *tgbotapi.BotAPI, update *tgbotapi.Update) error {
 	commandName := strings.ToLower(update.Message.Command())
 
 	// Check if the command is for me
@@ -116,16 +138,17 @@ func handleCommand(bot *tgbotapi.BotAPI, update *tgbotapi.Update) {
 		forName := commandWithAt[atIndex+1:]
 
 		if bot.Self.UserName != forName {
-			return
+			return nil
 		}
 	}
 
 	for _, h := range handlers {
-		if h.handlerBehavior(bot, update, commandName) {
+		if matched, err := h.handlerBehavior(bot, update, commandName); matched {
 			log.Printf("@%s: \t%s -> %s", update.Message.From.UserName, update.Message.Text, h.string)
-			return
+			return err
 		}
 	}
+	return nil
 }
 
 const DOMAIN = "@unibo.it\n"
@@ -159,13 +182,13 @@ func teachingToString(teaching cparser.Teaching) string {
 	return b.String()
 }
 
-func handleTeaching(bot *tgbotapi.BotAPI, update *tgbotapi.Update, teachingName string) bool {
+func handleTeaching(bot *tgbotapi.BotAPI, update *tgbotapi.Update, teachingName string) (bool, error) {
 	teaching, ok := model.Teachings[teachingName]
 	if !ok {
-		return false
+		return false, nil
 	}
-	utils.SendHTML(bot, *update, teachingToString(teaching), false)
-	return true
+	_, err := utils.SendHTML(bot, *update, teachingToString(teaching), false)
+	return true, err
 }
 
 func degreeToTeaching(degree cparser.Degree) cparser.Teaching {
@@ -225,39 +248,42 @@ func degreeToString(degree cparser.Degree) string {
 	return b.String()
 }
 
-func handleDegree(bot *tgbotapi.BotAPI, update *tgbotapi.Update, degreeId string) bool {
+func handleDegree(bot *tgbotapi.BotAPI, update *tgbotapi.Update, degreeId string) (bool, error) {
 	degree, ok := model.Degrees[degreeId]
 	if !ok {
-		return false
+		return false, nil
 	}
-	utils.SendHTML(bot, *update, degreeToString(degree), false)
-	return true
+	_, err := utils.SendHTML(bot, *update, degreeToString(degree), false)
+	return true, err
 }
 
-func handleMeme(bot *tgbotapi.BotAPI, update *tgbotapi.Update, memeName string) bool {
+func handleMeme(bot *tgbotapi.BotAPI, update *tgbotapi.Update, memeName string) (bool, error) {
 	memeIndex := slices.IndexFunc(model.MemeList, func(meme model.Meme) bool {
 		return strings.ToLower(meme.Name) == memeName
 	})
 
 	if memeIndex != -1 {
-		utils.SendHTML(bot, *update, model.MemeList[memeIndex].Text, false)
-		return true
+		_, err := utils.SendHTML(bot, *update, model.MemeList[memeIndex].Text, false)
+		return true, err
 	}
-	return false
+	return false, nil
 }
 
 // executes a given command in the command list, given its index
 // if invalid index, does nothing
-func executeCommand(bot *tgbotapi.BotAPI, update *tgbotapi.Update, commandIndex int) {
+func executeCommand(bot *tgbotapi.BotAPI, update *tgbotapi.Update, commandIndex int) error {
+	var deliveryErr error
 	if commandIndex >= 0 && commandIndex < len(model.Actions) {
 		newCommand := model.Actions[commandIndex].Data.HandleBotCommand(bot, update.Message)
 
 		if newCommand.HasText() {
-			utils.SendHTML(bot, *update, newCommand.Text, false)
+			_, err := utils.SendHTML(bot, *update, newCommand.Text, false)
+			deliveryErr = errors.Join(deliveryErr, err)
 		}
 
 		if newCommand.HasNextCommand() {
-			handleAction(bot, update, newCommand.NextCommand)
+			_, err := handleAction(bot, update, newCommand.NextCommand)
+			deliveryErr = errors.Join(deliveryErr, err)
 		}
 
 		if newCommand.HasRows() {
@@ -270,31 +296,33 @@ func executeCommand(bot *tgbotapi.BotAPI, update *tgbotapi.Update, commandIndex 
 			}
 			msg.ReplyMarkup = newCommand.Rows
 			if _, err := bot.Send(msg); err != nil {
+				deliveryErr = errors.Join(deliveryErr, err)
 				errorMsg := "Error sending data"
 				if update.Message.IsTopicMessage {
 					msg = tgbotapi.NewThreadMessage(update.Message.Chat.ID, update.Message.MessageThreadID, errorMsg)
 				} else {
 					msg = tgbotapi.NewMessage(update.Message.Chat.ID, errorMsg)
 				}
-				bot.Send(msg)
+				_, err = bot.Send(msg)
+				deliveryErr = errors.Join(deliveryErr, err)
 			}
 		}
 	}
+	return deliveryErr
 }
 
 // executes a given command in the command list, given its name
 // @return true if command was found, false otherwise
-func handleAction(bot *tgbotapi.BotAPI, update *tgbotapi.Update, commandName string) bool {
+func handleAction(bot *tgbotapi.BotAPI, update *tgbotapi.Update, commandName string) (bool, error) {
 	idx := slices.IndexFunc(model.Actions, func(action model.Action) bool {
 		return action.Name == commandName
 	})
 
 	if idx != -1 {
-		executeCommand(bot, update, idx)
-		return true
+		return true, executeCommand(bot, update, idx)
 	}
 
-	return false
+	return false, nil
 }
 
 // Handle a callback searching a the good action
@@ -321,23 +349,27 @@ func filterMessage(bot *tgbotapi.BotAPI, message *tgbotapi.Message) bool {
 	return false
 }
 
-func handleAutoreplies(bot *tgbotapi.BotAPI, update *tgbotapi.Update) {
+func handleAutoreplies(bot *tgbotapi.BotAPI, update *tgbotapi.Update) error {
+	var deliveryErr error
 	txt := strings.ToLower(update.Message.Text)
 	for _, a := range model.Autoreplies {
 		autoTxt := strings.ToLower(a.Text)
 		if a.IsStrict {
 			if strings.Contains(txt, autoTxt) {
-				utils.SendHTML(bot, *update, a.Reply, true)
+				_, err := utils.SendHTML(bot, *update, a.Reply, true)
+				deliveryErr = errors.Join(deliveryErr, err)
 			}
 		} else {
 			sAutoTxt := strings.Split(autoTxt, " ")
 
 			for i := range sAutoTxt {
 				if !strings.Contains(txt, sAutoTxt[i]) {
-					return
+					return deliveryErr
 				}
 			}
-			utils.SendHTML(bot, *update, a.Reply, true)
+			_, err := utils.SendHTML(bot, *update, a.Reply, true)
+			deliveryErr = errors.Join(deliveryErr, err)
 		}
 	}
+	return deliveryErr
 }
